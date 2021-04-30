@@ -155,3 +155,84 @@ my_states <- murders %>%
   mutate(rate = total / population * 100000, rank = rank(-rate)) %>%
   filter((region == "Northeast" | region == "West") & rate < 1) %>%
   select(state, rate, rank)
+
+
+# Load the datasets and define some variables
+library(dslabs)
+data(murders)
+
+population_in_millions <- murders$population / 10^6
+total_gun_murders <- murders$total
+
+plot(population_in_millions, total_gun_murders)
+
+# Transform population (not population in millions) using the log10 transformation and save to object log10_population
+log10_population <- log10(murders$population)
+
+# Transform total gun murders using log10 transformation and save to object log10_total_gun_murders
+log10_total_gun_murders <- log10(murders$total)
+
+# Create a scatterplot with the log scale transformed population and murders
+plot(log10_population, log10_total_gun_murders)
+
+
+# Store the population in millions and save to population_in_millions
+population_in_millions <- murders$population / 10^6
+
+
+# Create a histogram of this variable
+hist(population_in_millions)
+
+
+# Create a boxplot of state populations by region for the murders dataset
+boxplot(population ~ region, data = murders)
+
+
+library(dslabs)
+data(heights)
+options(digits = 3)    # report 3 significant digits for all answers
+
+head(heights)
+
+avg <- mean(heights$height)
+female <- heights$sex == "Female"
+sum(female) / nrow(heights)
+sum(heights$height > avg & female)
+
+min(heights$height)
+
+ind <- match(50, heights$height)
+
+heights$sex[ind]
+
+max(heights$height)
+
+x <- 50:82
+
+list <- x %in% heights$height
+
+sum(!list)
+
+library(dplyr)
+heights <- mutate(heights, ht_cm = height*2.54)
+heights$ht_cm[18]
+
+mean(heights$ht_cm)
+
+females <- filter(heights, sex == "Female")
+nrow(females)
+mean(females$ht_cm)
+
+library(dplyr)
+library(dslabs)
+data(olive)
+head(olive)
+
+plot(olive$palmitic,olive$palmitoleic)
+
+hist(olive$eicosenoic)
+
+boxplot(olive$palmitic~olive$region)
+
+
+
